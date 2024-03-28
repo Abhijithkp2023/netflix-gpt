@@ -1,15 +1,25 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate.js";
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../utils/firebase.js";
+import { useNavigate } from "react-router-dom";
+import { updateProfile } from "firebase/auth";
+import { addUser } from "../utils/userSlice.js";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
 
   const handleButtonClick = () => {
     //validate the form data
@@ -27,7 +37,30 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/152474325?v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/browser");
+              // Profile updated!
+              // ...
+            })
+            .catch((error) => {
+             setErrorMessage(error.message)
+            });
+
           console.log(user);
+          
           // ...
         })
         .catch((error) => {
@@ -46,6 +79,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
+          navigate("/browser");
           // ...
         })
         .catch((error) => {
@@ -78,6 +112,7 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="my-4 p-4 w-full bg-gray-700"
