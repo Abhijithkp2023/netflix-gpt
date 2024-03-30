@@ -9,6 +9,7 @@ import { auth } from "../utils/firebase.js";
 import { updateProfile } from "firebase/auth";
 import { addUser } from "../utils/userSlice.js";
 import { useDispatch } from "react-redux";
+import { USER_AVATAR } from "../utils/constant.js";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -37,7 +38,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/152474325?v=4",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -72,6 +73,26 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: USER_AVATAR,
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = user;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              // Profile updated!
+              // ...
+            })
+            .catch((error) => {
+             setErrorMessage(error.message)
+            });
           // ...
         })
         .catch((error) => {
@@ -98,7 +119,7 @@ const Login = () => {
       <div className="items-center">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="bg-black absolute w-3/12 p-10 my-36 mx-auto right-0 left-0 text-white bg-opacity-80"
+        className="bg-black absolute w-3/12 p-10 my-36 mx-auto right-0 left-0 text-white bg-opacity-80 rounded-md"
       >
         <h1 className="font-bold text-xl">
           {isSignInForm ? "Sign In" : "Sign Up"}
