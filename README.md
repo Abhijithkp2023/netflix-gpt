@@ -20,8 +20,16 @@
 - Unsubscribed to the unAuthStateChanged callback
 - Add hard coded values to the constants folder 
 - Register for TMDB API and create an app & get access to token
-- get data from TMDB movie which playing rescent.
-- Fetch movies from TMDB movies
+- get data from TMDB movie which now playing movies list API
+- Custom hook for Now Playing Movies
+- create MovieSlice
+- update the store with Movie Data
+- planning the Main Container and Secondary Container
+- Ftech data for the Trailer video
+- Update the store with trailor video data
+- Embeded the video and make it auto play and mute
+- Tailwind css to make main container awsome
+
 
 
 
