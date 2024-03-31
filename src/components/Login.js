@@ -4,20 +4,22 @@ import { checkValidData } from "../utils/validate.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase.js";
-import { updateProfile } from "firebase/auth";
 import { addUser } from "../utils/userSlice.js";
 import { useDispatch } from "react-redux";
+import { USER_AVATAR } from "../utils/constants.js";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
 
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
-  const name = useRef(null);
+  
 
   const handleButtonClick = () => {
     //validate the form data
@@ -37,7 +39,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/152474325?v=4",
+            photoURL: {USER_AVATAR},
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
