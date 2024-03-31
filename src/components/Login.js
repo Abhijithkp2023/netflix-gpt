@@ -97,7 +97,6 @@ const Login = () => {
           alt="logo"
         />
       </div>
-      <div className="items-center">
       <form
         onSubmit={(e) => e.preventDefault()}
         className="bg-black absolute w-3/12 p-10 my-36 mx-auto right-0 left-0 text-white bg-opacity-80"
