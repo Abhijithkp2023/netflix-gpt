@@ -137,9 +137,7 @@ const Login = () => {
             : "Already a user? Sign In now"}
         </p>
       </form>
-      </div>
     </div>
   );
-};
-
+}
 export default Login;

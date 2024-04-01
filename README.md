@@ -29,6 +29,12 @@
 - Update the store with trailor video data
 - Embeded the video and make it auto play and mute
 - Tailwind css to make main container awsome
+- Build secondary component
+- Built Movie List
+- Built Movie Card
+- TMDB image CDN URL
+- Made Browse page awsome with tailwind css
+- Use Popularmovie Custom hooks
 
 
 
