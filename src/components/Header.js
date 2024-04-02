@@ -4,7 +4,8 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/constants";
+import { LOGO } from "../utils/constant";
+import {toggleGptSearch} from "../utils/gptSlice"
 
 
 const Header = () => {
@@ -45,14 +46,20 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleGptSearchClick = () => {
+    //Toggle GPT Search
+    dispatch(toggleGptSearch());
+  }
+
   return (
-    <div className="absolute w-screen h-20 px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
+    <div className="absolute w-screen h-20 px-8 py-2 z-10 flex justify-between">
       <img
         className="w-44"
         src={LOGO}
         alt="logo"
       />
       { user && <div className="flex text-xs">
+      <button className="py-2 px-4 rounded-md my-4 mx-4 bg-purple-700 text-white" onClick={handleGptSearchClick}>GPT Serach</button>
         <img
           className="w-8 h-8 my-4"
           alt="user-icon"
