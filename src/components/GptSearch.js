@@ -1,6 +1,6 @@
 import React from 'react'
 import GptSearchBar from './GptSearchBar';
-import GptSearchPage from "./GptSearchPage";
+import GptMovieSuggetions from "./GptMovieSuggetions";
 import { BG_URL } from '../utils/constant';
 
 const GptSearch = () => {
@@ -10,7 +10,7 @@ const GptSearch = () => {
         <img src={BG_URL}/>
       </div>
       <GptSearchBar />
-      <GptSearchPage />
+      <GptMovieSuggetions />
     </div>
   )
 }
